@@ -12,7 +12,7 @@ namespace Opto.ConsoleClient.Tests
 
             Program.Main(noArguments);
 
-            ConsoleOutput.Should().Contain("usage");
+            ConsoleOutput.Should().Contain("Usage");
         }
     }
 }

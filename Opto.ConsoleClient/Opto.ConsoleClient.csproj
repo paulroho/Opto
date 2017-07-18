@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleWriter.cs" />
     <Compile Include="UsagePrinter.cs" />
     <Compile Include="OptoMain.cs" />
     <Compile Include="Program.cs" />
