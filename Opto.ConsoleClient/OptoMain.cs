@@ -1,17 +1,22 @@
-﻿using System;
-
-namespace Opto.ConsoleClient
+﻿namespace Opto.ConsoleClient
 {
     public interface IOptoMain
     {
-        void Execute(string[] args);
+        void Execute(params string[] args);
     }
 
     public class OptoMain : IOptoMain
     {
-        public void Execute(string[] args)
+        private readonly IUsagePrinter _usagePrinter;
+
+        public OptoMain(IUsagePrinter usagePrinter)
         {
-            Console.WriteLine("usage");
+            _usagePrinter = usagePrinter;
+        }
+
+        public void Execute(params string[] args)
+        {
+            _usagePrinter.PrintCommonUsageInfo();
         }
     }
 }

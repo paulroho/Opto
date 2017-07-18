@@ -16,7 +16,7 @@
 
         public static void ResetOptoMain()
         {
-            OptoMain = new OptoMain();
+            OptoMain = new OptoMain(new UsagePrinter());
         }
     }
 }

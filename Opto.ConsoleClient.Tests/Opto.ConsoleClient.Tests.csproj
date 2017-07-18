@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="CapturingStandardOutTestsBase.cs" />
     <Compile Include="CommandlineSmokeTests.cs" />
+    <Compile Include="OptoMainTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
