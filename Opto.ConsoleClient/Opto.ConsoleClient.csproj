@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EB9369C3-55C5-42D8-885F-DD0D801C0210}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Ofso.Console</RootNamespace>
-    <AssemblyName>Ofso.Console</AssemblyName>
+    <RootNamespace>Opto.ConsoleClient</RootNamespace>
+    <AssemblyName>Opto</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

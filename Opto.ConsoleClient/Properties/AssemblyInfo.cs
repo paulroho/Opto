@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ofso.Console")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Opto.ConsoleClient")]
+[assembly: AssemblyDescription("Office to Plain Text to Office")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ofso.Console")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("Opto")]
+[assembly: AssemblyCopyright("Copyright © 2017 by Paul Rohorzka (paulroho.com)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
