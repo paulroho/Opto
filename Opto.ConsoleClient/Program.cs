@@ -1,12 +1,22 @@
-﻿using System;
-
-namespace Opto.ConsoleClient
+﻿namespace Opto.ConsoleClient
 {
     public static class Program
     {
+        static Program()
+        {
+            ResetOptoMain();
+        }
+
         public static void Main(string[] args)
         {
-            Console.WriteLine("usage");
+            OptoMain.Execute(args);
+        }
+
+        public static IOptoMain OptoMain { get; set; }
+
+        public static void ResetOptoMain()
+        {
+            OptoMain = new OptoMain();
         }
     }
 }

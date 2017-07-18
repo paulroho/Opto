@@ -1,8 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.IO;
+using Xunit;
 
 namespace Opto.ConsoleClient.Tests
 {
+    [Collection("Tests redirecting Standard.Out")]  // Prevent tests derived from that class to execute in parallel
     public class CapturingStandardOutTestsBase : IDisposable
     {
         private readonly TextWriter _originalOutStream;
@@ -17,8 +20,9 @@ namespace Opto.ConsoleClient.Tests
 
         protected String ConsoleOutput => _consoleOutStream.ToString();
 
-        public void Dispose()
+        public virtual void Dispose()
         {
+            Debug.WriteLine("Disposing");
             Console.SetOut(_originalOutStream);
         }
     }

@@ -10,7 +10,6 @@ namespace Opto.ConsoleClient.Tests
         {
             var noArguments = new string[]{};
 
-            // Act
             Program.Main(noArguments);
 
             ConsoleOutput.Should().Contain("usage");
