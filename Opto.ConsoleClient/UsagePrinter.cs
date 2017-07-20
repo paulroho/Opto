@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel.Design;
 
 namespace Opto.ConsoleClient
 {
     public interface IUsagePrinter
     {
         void PrintCommonUsageInfo();
+        void ShowUnknownCommand(string unknownCommand);
     }
 
     public class UsagePrinter : IUsagePrinter
@@ -22,6 +22,11 @@ namespace Opto.ConsoleClient
             _consoleWriter.WriteLine("OptO - Office -> Plaint Text -> Office");
             _consoleWriter.WriteLine("Usage:");
             _consoleWriter.WriteLine("opto help         Show this help screen");
+        }
+
+        public void ShowUnknownCommand(string unknownCommand)
+        {
+            _consoleWriter.WriteLine($"Unknown opto command \"{unknownCommand}\".");
         }
     }
 }

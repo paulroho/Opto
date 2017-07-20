@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Text;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace Opto.ConsoleClient.Tests
 {
     public class UsagePrinterTests
     {
+        private readonly MockConsoleWriter _mockConsoleWriter;
+        private readonly UsagePrinter _usagePrinter;
+
+        public UsagePrinterTests()
+        {
+            _mockConsoleWriter = new MockConsoleWriter();
+            _usagePrinter = new UsagePrinter(_mockConsoleWriter);
+        }
+
         [Fact]
         public void PassingNullConsoleWriter_ThrowsArgumentNullException()
         {
@@ -17,12 +25,17 @@ namespace Opto.ConsoleClient.Tests
         [Fact]
         public void PrintCommonUsageInfo_ShowsHowToGetHelp()
         {
-            var mockConsoleWriter = new MockConsoleWriter();
-            var printer = new UsagePrinter(mockConsoleWriter);
+            _usagePrinter.PrintCommonUsageInfo();
 
-            printer.PrintCommonUsageInfo();
+            _mockConsoleWriter.Output.Should().Contain("opto help");
+        }
 
-            mockConsoleWriter.Output.Should().Contain("opto help");
+        [Fact]
+        public void ShowUnknownCommandInfo_ShowsTheUnknownCommand()
+        {
+            _usagePrinter.ShowUnknownCommand("ThisIsUnknown");
+
+            _mockConsoleWriter.Output.Should().Be("Unknown opto command \"ThisIsUnknown\".\r\n");
         }
     }
 

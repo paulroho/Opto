@@ -1,19 +1,47 @@
-﻿using Moq;
+﻿using System;
+using System.Collections.Generic;
+using Moq;
 using Xunit;
 
 namespace Opto.ConsoleClient.Tests
 {
     public class OptoMainTests
     {
-        [Fact]
-        public void CallingWithNoArguments_PrintsCommonUsageInfo()
+        private readonly Mock<IUsagePrinter> _usagePrinterMock;
+        private readonly OptoMain _main;
+
+        public OptoMainTests()
         {
-            var usagePrinterMock = new Mock<IUsagePrinter>();
-            var main = new OptoMain(usagePrinterMock.Object);
+            _usagePrinterMock = new Mock<IUsagePrinter>();
+            _main = new OptoMain(_usagePrinterMock.Object);
+        }
 
-            main.Execute();
+        // ReSharper disable once MemberCanBePrivate.Global
+        public static IEnumerable<string[]> CommandlineArgsForCommonHelp = new[]
+        {
+            new string[] { },
+            new[] {"help"},
+            new[] {"/?"},
+            new[] {"-h"},
+            new[] {"--help"},
+        };
 
-            usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
+        [Theory]
+        [MemberData(nameof(CommandlineArgsForCommonHelp))]
+        public void CallingWithNoArgumentsOrHelpArguments_PrintsCommonUsageInfo(params string[] arguments)
+        {
+            _main.Execute(arguments);
+
+            _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
+        }
+
+        [Fact]
+        public void CallingWithUnknownArgument_PrintsErrorMessageAndHelp()
+        {
+            _main.Execute("ThisIsUnknown");
+
+            _usagePrinterMock.Verify(up => up.ShowUnknownCommand("ThisIsUnknown"), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
         }
     }
 }
