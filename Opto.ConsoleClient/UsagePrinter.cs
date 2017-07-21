@@ -37,7 +37,7 @@ namespace Opto.ConsoleClient
 
         public void PrintCommandInfo(string commandHelpText)
         {
-            throw new NotImplementedException();
+            WriteLine(commandHelpText);
         }
     }
 }

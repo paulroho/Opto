@@ -36,7 +36,15 @@ namespace Opto.ConsoleClient.Tests
         {
             _usagePrinter.PrintUnknownCommandHelp("ThisIsUnknown");
 
-            _mockConsoleWriter.Output.Should().Be("Unknown opto command \"ThisIsUnknown\".\r\n");
+            _mockConsoleWriter.Output.Should().Be($"Unknown opto command \"ThisIsUnknown\".{Environment.NewLine}");
+        }
+
+        [Fact]
+        public void PrintCommandInfo_JustPrintsThePassedCommandHelpText()
+        {
+            _usagePrinter.PrintCommandInfo("The command's help text");
+
+            _mockConsoleWriter.Output.Should().Be($"The command's help text{Environment.NewLine}");
         }
     }
 
