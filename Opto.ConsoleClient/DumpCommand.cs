@@ -1,15 +1,33 @@
-﻿namespace Opto.ConsoleClient
+﻿using System.Text;
+
+namespace Opto.ConsoleClient
 {
     public class DumpCommand : IOptoCommand
     {
+        private readonly IConsoleWriter _writer;
+
+        public DumpCommand(IConsoleWriter writer)
+        {
+            _writer = writer;
+        }
+
         public virtual void Execute(string[] args)
         {
-            throw new System.NotImplementedException();
+            // TODO
+            var filename = args[0];
+            _writer.WriteLine($"TODO: I will be able to dump {filename}.");
         }
 
         public virtual string HelpText
         {
-            get { throw new System.NotImplementedException(); }
+            get
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("Usage: opto dump <file>");
+                sb.AppendLine();
+                sb.AppendLine("    <file>   The file to be dumped");
+                return sb.ToString();
+            }
         }
 
         public virtual string Key => "dump";

@@ -16,7 +16,8 @@
 
         public static void ResetOptoMain()
         {
-            OptoMain = new OptoMain(new UsagePrinter(new ConsoleWriter()), new[] {new DumpCommand()});
+            var writer = new ConsoleWriter();
+            OptoMain = new OptoMain(new UsagePrinter(writer), new IOptoCommand[] {new DumpCommand(writer)});
         }
     }
 }
