@@ -25,7 +25,9 @@ namespace Opto.ConsoleClient
             WriteLine("Usage: opto [-h | --help | /?]");
             WriteLine("       <command> [<args>]");
             WriteLine();
-            WriteLine("These commands are available");
+            WriteLine("These commands are available:");
+            WriteLine("   dump <file>      Dump <file> to plain text files");
+            WriteLine();
             WriteLine("   help             Show this help screen");
             WriteLine("   help <command>   Show help for <command>");
         }
