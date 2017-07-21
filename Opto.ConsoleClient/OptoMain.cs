@@ -12,14 +12,14 @@ namespace Opto.ConsoleClient
     public class OptoMain : IOptoMain
     {
         private readonly IUsagePrinter _usagePrinter;
-        private readonly Dictionary<string[], Action> _commandMappings;
+        private readonly Dictionary<string[], Action<string[]>> _commandMappings;
 
         public OptoMain(IUsagePrinter usagePrinter)
         {
             _usagePrinter = usagePrinter;
-            _commandMappings = new Dictionary<string[], Action>
+            _commandMappings = new Dictionary<string[], Action<string[]>>
             {
-                {new[] {null, "help", "/?", "-h", "--help"}, _usagePrinter.PrintCommonUsageInfo}
+                {new[] {null, "help", "/?", "-h", "--help"}, args => _usagePrinter.PrintCommonUsageInfo()}
             };
         }
 
@@ -27,14 +27,14 @@ namespace Opto.ConsoleClient
         {
             var command = args.FirstOrDefault();
             var action = GetCommandAction(command);
-            action();
+            action(args);
         }
 
-        private Action GetCommandAction(string command)
+        private Action<string[]> GetCommandAction(string command)
         {
             var mapping = _commandMappings.SingleOrDefault(cm => cm.Key.Any(c => c == command));
 
-            void UnknownCommandAction()
+            void UnknownCommandAction(string[] args)
             {
                 _usagePrinter.ShowUnknownCommand(command);
                 _usagePrinter.PrintCommonUsageInfo();
