@@ -43,7 +43,7 @@ namespace Opto.ConsoleClient.Tests
         {
             _main.Execute("help", "ThisIsUnknown");
 
-            _usagePrinterMock.Verify(up => up.ShowUnknownCommand("ThisIsUnknown"), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintUnknownCommandHelp("ThisIsUnknown"), Times.Once);
             _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
         }
 
@@ -62,7 +62,7 @@ namespace Opto.ConsoleClient.Tests
         {
             _main.Execute("ThisIsUnknown");
 
-            _usagePrinterMock.Verify(up => up.ShowUnknownCommand("ThisIsUnknown"), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintUnknownCommandHelp("ThisIsUnknown"), Times.Once);
             _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
         }
 

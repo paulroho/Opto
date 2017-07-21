@@ -32,9 +32,9 @@ namespace Opto.ConsoleClient.Tests
         }
 
         [Fact]
-        public void ShowUnknownCommandInfo_ShowsTheUnknownCommand()
+        public void PrintUnknownCommandHelp_ShowsTheUnknownCommand()
         {
-            _usagePrinter.ShowUnknownCommand("ThisIsUnknown");
+            _usagePrinter.PrintUnknownCommandHelp("ThisIsUnknown");
 
             _mockConsoleWriter.Output.Should().Be("Unknown opto command \"ThisIsUnknown\".\r\n");
         }

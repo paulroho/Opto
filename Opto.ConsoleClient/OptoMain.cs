@@ -39,7 +39,7 @@ namespace Opto.ConsoleClient
                     _usagePrinter.PrintCommandInfo(command.HelpText);
                 else
                 {
-                    _usagePrinter.ShowUnknownCommand(commandKey);
+                    _usagePrinter.PrintUnknownCommandHelp(commandKey);
                     _usagePrinter.PrintCommonUsageInfo();
                 }
             }
@@ -51,8 +51,8 @@ namespace Opto.ConsoleClient
 
         public void Execute(params string[] args)
         {
-            var command = args.FirstOrDefault();
-            var action = GetCommandAction(command);
+            var commandKey = args.FirstOrDefault();
+            var action = GetCommandAction(commandKey);
             var commandArgs = args.Skip(1).ToArray();
             action(commandArgs);
         }
@@ -67,7 +67,7 @@ namespace Opto.ConsoleClient
 
             void UnknownCommandAction(string[] args)
             {
-                _usagePrinter.ShowUnknownCommand(command);
+                _usagePrinter.PrintUnknownCommandHelp(command);
                 _usagePrinter.PrintCommonUsageInfo();
             }
         }

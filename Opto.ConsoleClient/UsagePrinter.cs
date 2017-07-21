@@ -5,7 +5,7 @@ namespace Opto.ConsoleClient
     public interface IUsagePrinter
     {
         void PrintCommonUsageInfo();
-        void ShowUnknownCommand(string unknownCommand);
+        void PrintUnknownCommandHelp(string unknownCommand);
         void PrintCommandInfo(string commandHelpText);
     }
 
@@ -30,7 +30,7 @@ namespace Opto.ConsoleClient
             WriteLine("   help <command>   Show help for <command>");
         }
 
-        public void ShowUnknownCommand(string unknownCommand)
+        public void PrintUnknownCommandHelp(string unknownCommand)
         {
             WriteLine($"Unknown opto command \"{unknownCommand}\".");
         }
