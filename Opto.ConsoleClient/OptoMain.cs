@@ -12,7 +12,7 @@ namespace Opto.ConsoleClient
     public class OptoMain : IOptoMain
     {
         private readonly IUsagePrinter _usagePrinter;
-        private Dictionary<string[], Action> _commandMappings;
+        private readonly Dictionary<string[], Action> _commandMappings;
 
         public OptoMain(IUsagePrinter usagePrinter)
         {
@@ -34,7 +34,7 @@ namespace Opto.ConsoleClient
         {
             var mapping = _commandMappings.SingleOrDefault(cm => cm.Key.Any(c => c == command));
 
-            void unknownCommandAction()
+            void UnknownCommandAction()
             {
                 _usagePrinter.ShowUnknownCommand(command);
                 _usagePrinter.PrintCommonUsageInfo();
@@ -42,7 +42,7 @@ namespace Opto.ConsoleClient
 
             return mapping.Key != null
                 ? mapping.Value
-                : unknownCommandAction;
+                : UnknownCommandAction;
         }
     }
 }

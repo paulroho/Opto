@@ -17,18 +17,20 @@ namespace Opto.ConsoleClient
             _consoleWriter = consoleWriter ?? throw new ArgumentNullException(nameof(consoleWriter));
         }
 
+        private void WriteLine(string message = null) => _consoleWriter.WriteLine(message);
+
         public void PrintCommonUsageInfo()
         {
-            _consoleWriter.WriteLine("Usage: opto [-h | --help | /?]");
-            _consoleWriter.WriteLine("       <command> [<args>]");
-            _consoleWriter.WriteLine();
-            _consoleWriter.WriteLine("These commands are available");
-            _consoleWriter.WriteLine("   help  Show this help screen");
+            WriteLine("Usage: opto [-h | --help | /?]");
+            WriteLine("       <command> [<args>]");
+            WriteLine();
+            WriteLine("These commands are available");
+            WriteLine("   help  Show this help screen");
         }
 
         public void ShowUnknownCommand(string unknownCommand)
         {
-            _consoleWriter.WriteLine($"Unknown opto command \"{unknownCommand}\".");
+            WriteLine($"Unknown opto command \"{unknownCommand}\".");
         }
     }
 }
