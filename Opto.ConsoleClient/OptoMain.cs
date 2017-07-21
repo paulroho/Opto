@@ -32,19 +32,26 @@ namespace Opto.ConsoleClient
         private void ShowHelp(string[] args)
         {
             var commandKey = args.FirstOrDefault();
-            if (commandKey != null)
+            if (commandKey == null)
             {
-                var command = _commands.SingleOrDefault(cmd => cmd.Key == commandKey);
-                if (command != null)
-                    _usagePrinter.PrintCommandInfo(command.HelpText);
-                else
-                {
-                    _usagePrinter.PrintUnknownCommandHelp(commandKey);
-                    _usagePrinter.PrintCommonUsageInfo();
-                }
+                _usagePrinter.PrintCommonUsageInfo();
             }
             else
             {
+                ShowCommandHelp(commandKey);
+            }
+        }
+
+        private void ShowCommandHelp(string commandKey)
+        {
+            var command = _commands.SingleOrDefault(cmd => cmd.Key == commandKey);
+            if (command != null)
+            {
+                _usagePrinter.PrintCommandInfo(command.HelpText);
+            }
+            else
+            {
+                _usagePrinter.PrintUnknownCommandHelp(commandKey);
                 _usagePrinter.PrintCommonUsageInfo();
             }
         }
