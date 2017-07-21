@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Moq;
 using Xunit;
 
@@ -7,16 +6,20 @@ namespace Opto.ConsoleClient.Tests
 {
     public class OptoMainTests
     {
-        private readonly Mock<IUsagePrinter> _usagePrinterMock;
         private readonly OptoMain _main;
+        private readonly Mock<IUsagePrinter> _usagePrinterMock;
+        private readonly Mock<DumpCommand> _dumpCommandMock;
 
         public OptoMainTests()
         {
             _usagePrinterMock = new Mock<IUsagePrinter>();
-            _main = new OptoMain(_usagePrinterMock.Object);
+            _dumpCommandMock = new Mock<DumpCommand>();
+            _dumpCommandMock.Setup(cmd => cmd.Key).Returns("dump");
+            _main = new OptoMain(_usagePrinterMock.Object, new []{_dumpCommandMock.Object});
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
+
         public static IEnumerable<string[]> CommandlineArgsForCommonHelp = new[]
         {
             new string[] { },
@@ -36,12 +39,39 @@ namespace Opto.ConsoleClient.Tests
         }
 
         [Fact]
+        public void CallingHelpForAnUnknownCommand_PrintsErrorMessageAndCommonHelp()
+        {
+            _main.Execute("help", "ThisIsUnknown");
+
+            _usagePrinterMock.Verify(up => up.ShowUnknownCommand("ThisIsUnknown"), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
+        }
+
+        [Fact]
+        public void CallingHelpForDump_ShowsJustTheHelptextFromTheDumpCommand()
+        {
+            _dumpCommandMock.SetupGet(dc => dc.HelpText).Returns(() => "The dump help");
+            _main.Execute("help", "dump");
+
+            _usagePrinterMock.Verify(up => up.PrintCommandInfo("The dump help"), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Never);
+        }
+
+        [Fact]
         public void CallingWithUnknownArgument_PrintsErrorMessageAndHelp()
         {
             _main.Execute("ThisIsUnknown");
 
             _usagePrinterMock.Verify(up => up.ShowUnknownCommand("ThisIsUnknown"), Times.Once);
             _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
+        }
+
+        [Fact]
+        public void CallingCommandDumpWithAnArgument_InvokesTheDumpCommandWithThatArgument()
+        {
+            _main.Execute("dump", "MyFile.ext");
+
+            _dumpCommandMock.Verify(d => d.Execute(new []{"MyFile.ext"}), Times.Once());
         }
     }
 }

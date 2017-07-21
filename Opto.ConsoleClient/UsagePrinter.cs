@@ -6,6 +6,7 @@ namespace Opto.ConsoleClient
     {
         void PrintCommonUsageInfo();
         void ShowUnknownCommand(string unknownCommand);
+        void PrintCommandInfo(string commandHelpText);
     }
 
     public class UsagePrinter : IUsagePrinter
@@ -25,12 +26,18 @@ namespace Opto.ConsoleClient
             WriteLine("       <command> [<args>]");
             WriteLine();
             WriteLine("These commands are available");
-            WriteLine("   help  Show this help screen");
+            WriteLine("   help             Show this help screen");
+            WriteLine("   help <command>   Show help for <command>");
         }
 
         public void ShowUnknownCommand(string unknownCommand)
         {
             WriteLine($"Unknown opto command \"{unknownCommand}\".");
+        }
+
+        public void PrintCommandInfo(string commandHelpText)
+        {
+            throw new NotImplementedException();
         }
     }
 }
