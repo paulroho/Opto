@@ -21,6 +21,7 @@ namespace Opto.ConsoleClient
         {
             _consoleWriter.WriteLine("Usage: opto [-h | --help | /?]");
             _consoleWriter.WriteLine("       <command> [<args>]");
+            _consoleWriter.WriteLine();
             _consoleWriter.WriteLine("These commands are available");
             _consoleWriter.WriteLine("   help  Show this help screen");
         }
