@@ -1,4 +1,6 @@
-﻿namespace Opto.ConsoleClient
+﻿using Autofac;
+
+namespace Opto.ConsoleClient
 {
     public static class Program
     {
@@ -16,8 +18,11 @@
 
         public static void ResetOptoMain()
         {
-            var writer = new ConsoleWriter();
-            OptoMain = new OptoMain(new UsagePrinter(writer), new IOptoCommand[] {new DumpCommand(writer)});
+            var builder = new ContainerBuilder();
+            builder.RegisterComponents();
+            var container = builder.Build();
+
+            OptoMain = container.Resolve<IOptoMain>();
         }
     }
 }
