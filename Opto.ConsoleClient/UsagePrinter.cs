@@ -19,9 +19,10 @@ namespace Opto.ConsoleClient
 
         public void PrintCommonUsageInfo()
         {
-            _consoleWriter.WriteLine("OptO - Office -> Plaint Text -> Office");
-            _consoleWriter.WriteLine("Usage:");
-            _consoleWriter.WriteLine("opto help         Show this help screen");
+            _consoleWriter.WriteLine("Usage: opto [-h | --help | /?]");
+            _consoleWriter.WriteLine("       <command> [<args>]");
+            _consoleWriter.WriteLine("These commands are available");
+            _consoleWriter.WriteLine("   help  Show this help screen");
         }
 
         public void ShowUnknownCommand(string unknownCommand)

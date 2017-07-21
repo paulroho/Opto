@@ -27,7 +27,8 @@ namespace Opto.ConsoleClient.Tests
         {
             _usagePrinter.PrintCommonUsageInfo();
 
-            _mockConsoleWriter.Output.Should().Contain("opto help");
+            _mockConsoleWriter.Output.Should().Contain("opto");
+            _mockConsoleWriter.Output.Should().Contain("help");
         }
 
         [Fact]
