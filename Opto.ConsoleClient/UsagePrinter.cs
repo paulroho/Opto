@@ -22,7 +22,7 @@ namespace Opto.ConsoleClient
 
         public void PrintCommonUsageInfo()
         {
-            WriteLine("Usage: opto [-h | --help | /?]");
+            WriteLine("Usage: opto");
             WriteLine("       <command> [<args>]");
             WriteLine();
             WriteLine("These commands are available:");

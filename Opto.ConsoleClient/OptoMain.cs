@@ -21,7 +21,7 @@ namespace Opto.ConsoleClient
             _commands = commands;
             _commandMappings = new Dictionary<string[], Action<string[]>>
             {
-                {new[] {null, "help", "/?", "-h", "--help"}, ShowHelp},
+                {new[] {null, "help"}, ShowHelp},
             };
             foreach (var command in _commands)
             {

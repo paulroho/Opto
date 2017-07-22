@@ -24,18 +24,16 @@ namespace Opto.ConsoleClient.Tests
         {
             new string[] { },
             new[] {"help"},
-            new[] {"/?"},
-            new[] {"-h"},
-            new[] {"--help"},
         };
 
         [Theory]
         [MemberData(nameof(CommandlineArgsForCommonHelp))]
-        public void CallingWithNoArgumentsOrHelpArguments_PrintsCommonUsageInfo(params string[] arguments)
+        public void CallingWithNoArgumentsOrHelpArguments_PrintsJustTheCommonUsageInfo(params string[] arguments)
         {
             _main.Execute(arguments);
 
             _usagePrinterMock.Verify(up => up.PrintCommonUsageInfo(), Times.Once);
+            _usagePrinterMock.Verify(up => up.PrintUnknownCommandHelp(It.IsAny<string>()), Times.Never);
         }
 
         [Fact]
