@@ -13,19 +13,19 @@ namespace Opto.ConsoleClient
     {
         private readonly IUsagePrinter _usagePrinter;
         private readonly IOptoCommand[] _commands;
-        private readonly Dictionary<string[], Action<string[]>> _commandMappings;
+        private readonly Dictionary<string, Action<string[]>> _commandMappings;
 
         public OptoMain(IUsagePrinter usagePrinter, IOptoCommand[] commands)
         {
             _usagePrinter = usagePrinter;
             _commands = commands;
-            _commandMappings = new Dictionary<string[], Action<string[]>>
+            _commandMappings = new Dictionary<string, Action<string[]>>
             {
-                {new[] {null, "help"}, ShowHelp},
+                {"help", ShowHelp},
             };
             foreach (var command in _commands)
             {
-                _commandMappings.Add(new[] {command.Key}, args => command.Execute(args));
+                _commandMappings.Add(command.Key, args => command.Execute(args));
             }
         }
 
@@ -66,7 +66,10 @@ namespace Opto.ConsoleClient
 
         private Action<string[]> GetCommandAction(string command)
         {
-            var mapping = _commandMappings.SingleOrDefault(cm => cm.Key.Any(c => c == command));
+            if (command == null)
+                return ShowHelp;
+
+            var mapping = _commandMappings.SingleOrDefault(cm => cm.Key == command);
 
             return mapping.Key != null
                 ? mapping.Value
