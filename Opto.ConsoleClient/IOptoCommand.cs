@@ -3,7 +3,11 @@
     public interface IOptoCommand
     {
         void Execute(string[] args);
-        string HelpText { get; }
         string Key { get; }
+    }
+
+    public interface IOptoCommandWithHelp : IOptoCommand
+    {
+        string HelpText { get; }
     }
 }

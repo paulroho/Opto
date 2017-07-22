@@ -49,6 +49,7 @@
     <Compile Include="ComponentRegistry.cs" />
     <Compile Include="ConsoleWriter.cs" />
     <Compile Include="DumpCommand.cs" />
+    <Compile Include="HelpCommand.cs" />
     <Compile Include="IOptoCommand.cs" />
     <Compile Include="UsagePrinter.cs" />
     <Compile Include="OptoMain.cs" />

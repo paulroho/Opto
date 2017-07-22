@@ -19,6 +19,7 @@ namespace Opto.ConsoleClient
 
         private static void RegisterCommands(this ContainerBuilder builder)
         {
+            builder.RegisterType<HelpCommand>().AsImplementedInterfaces();
             builder.RegisterType<DumpCommand>().AsImplementedInterfaces();
         }
     }

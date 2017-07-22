@@ -8,14 +8,15 @@ namespace Opto.ConsoleClient.Tests
     {
         private readonly OptoMain _main;
         private readonly Mock<IUsagePrinter> _usagePrinterMock;
-        private readonly Mock<IOptoCommand> _dumpCommandMock;
+        private readonly Mock<IOptoCommandWithHelp> _dumpCommandMock;
 
         public OptoMainTests()
         {
             _usagePrinterMock = new Mock<IUsagePrinter>();
-            _dumpCommandMock = new Mock<IOptoCommand>();
+            _dumpCommandMock = new Mock<IOptoCommandWithHelp>();
             _dumpCommandMock.Setup(cmd => cmd.Key).Returns("dump");
-            _main = new OptoMain(_usagePrinterMock.Object, new []{_dumpCommandMock.Object});
+            IOptoCommand helpCommand = new HelpCommand(_usagePrinterMock.Object, new []{_dumpCommandMock.Object});
+            _main = new OptoMain(_usagePrinterMock.Object, new []{helpCommand, _dumpCommandMock.Object});
         }
 
         // ReSharper disable once MemberCanBePrivate.Global

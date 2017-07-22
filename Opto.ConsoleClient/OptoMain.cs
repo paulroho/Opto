@@ -19,40 +19,10 @@ namespace Opto.ConsoleClient
         {
             _usagePrinter = usagePrinter;
             _commands = commands;
-            _commandMappings = new Dictionary<string, Action<string[]>>
-            {
-                {"help", ShowHelp},
-            };
+            _commandMappings = new Dictionary<string, Action<string[]>>();
             foreach (var command in _commands)
             {
                 _commandMappings.Add(command.Key, args => command.Execute(args));
-            }
-        }
-
-        private void ShowHelp(string[] args)
-        {
-            var commandKey = args.FirstOrDefault();
-            if (commandKey == null)
-            {
-                _usagePrinter.PrintCommonUsageInfo();
-            }
-            else
-            {
-                ShowCommandHelp(commandKey);
-            }
-        }
-
-        private void ShowCommandHelp(string commandKey)
-        {
-            var command = _commands.SingleOrDefault(cmd => cmd.Key == commandKey);
-            if (command != null)
-            {
-                _usagePrinter.PrintCommandInfo(command.HelpText);
-            }
-            else
-            {
-                _usagePrinter.PrintUnknownCommandHelp(commandKey);
-                _usagePrinter.PrintCommonUsageInfo();
             }
         }
 
@@ -67,7 +37,10 @@ namespace Opto.ConsoleClient
         private Action<string[]> GetCommandAction(string command)
         {
             if (command == null)
-                return ShowHelp;
+            {
+                var helpCommand = _commands.Single(cmd => cmd.Key == "help");
+                return args => helpCommand.Execute(args);
+            }
 
             var mapping = _commandMappings.SingleOrDefault(cm => cm.Key == command);
 

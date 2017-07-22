@@ -2,7 +2,7 @@
 
 namespace Opto.ConsoleClient
 {
-    public class DumpCommand : IOptoCommand
+    public class DumpCommand : IOptoCommandWithHelp
     {
         private readonly IConsoleWriter _writer;
 
@@ -30,6 +30,6 @@ namespace Opto.ConsoleClient
             }
         }
 
-        public virtual string Key => "dump";
+        public virtual string Key { get; } = "dump";
     }
 }
