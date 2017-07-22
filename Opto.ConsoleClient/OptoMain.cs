@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Opto.ConsoleClient
@@ -13,17 +12,11 @@ namespace Opto.ConsoleClient
     {
         private readonly IUsagePrinter _usagePrinter;
         private readonly IOptoCommand[] _commands;
-        private readonly Dictionary<string, Action<string[]>> _commandMappings;
 
         public OptoMain(IUsagePrinter usagePrinter, IOptoCommand[] commands)
         {
             _usagePrinter = usagePrinter;
             _commands = commands;
-            _commandMappings = new Dictionary<string, Action<string[]>>();
-            foreach (var command in _commands)
-            {
-                _commandMappings.Add(command.Key, args => command.Execute(args));
-            }
         }
 
         public void Execute(params string[] args)
@@ -34,23 +27,20 @@ namespace Opto.ConsoleClient
             action(commandArgs);
         }
 
-        private Action<string[]> GetCommandAction(string command)
+        private Action<string[]> GetCommandAction(string commandKey)
         {
-            if (command == null)
-            {
-                var helpCommand = _commands.Single(cmd => cmd.Key == "help");
-                return args => helpCommand.Execute(args);
-            }
+            if (commandKey == null)
+                return args => _commands.Single(cmd => cmd.Key == "help").Execute(args);
 
-            var mapping = _commandMappings.SingleOrDefault(cm => cm.Key == command);
+            var command = _commands.SingleOrDefault(cmd => cmd.Key == commandKey);
+            if (command != null)
+                return args => command.Execute(args);
 
-            return mapping.Key != null
-                ? mapping.Value
-                : UnknownCommandAction;
+            return UnknownCommandAction;
 
             void UnknownCommandAction(string[] args)
             {
-                _usagePrinter.PrintUnknownCommandHelp(command);
+                _usagePrinter.PrintUnknownCommandHelp(commandKey);
                 _usagePrinter.PrintCommonUsageInfo();
             }
         }
